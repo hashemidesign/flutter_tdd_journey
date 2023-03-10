@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tdd_journey/home_screen.dart';
 import 'package:tdd_journey/validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -29,23 +30,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextFormField(
                   controller: _emailController,
                   key: const ValueKey("email"),
-                  decoration: const InputDecoration(
-                    hintText: "Enter Email Address"
-                  ),
+                  decoration:
+                      const InputDecoration(hintText: "Enter Email Address"),
                   validator: (value) => Validator.validateEmail(value ?? ""),
                 ),
                 TextFormField(
                   controller: _passwordController,
                   key: const ValueKey("password"),
-                  decoration: const InputDecoration(
-                      hintText: "Enter Password"
-                  ),
+                  decoration: const InputDecoration(hintText: "Enter Password"),
                   validator: (value) => Validator.validatePassword(value ?? ""),
                 ),
                 const SizedBox(height: 32.0),
-                ElevatedButton(onPressed: (){
-                  _key.currentState!.validate();
-                }, child: const Text("Log In")),
+                ElevatedButton(
+                    onPressed: () {
+                      if (_key.currentState!.validate()) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const HomeScreen()),
+                        );
+                      }
+                    },
+                    child: const Text("Log In")),
               ],
             ),
           ),
